@@ -1,13 +1,30 @@
 const app = require("express")();
 const server = require("http").createServer(app);
+const util = require("util");
+var mysql = require("mysql");
 
 const port = 3500;
 
-const deviceinfo = [];
+var con = mysql.createConnection({
+  host: "178.128.20.202",
+  user: "monty",
+  password: "some_pass",
+});
+
+const query = util.promisify(con.query).bind(con);
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 //show data in device info
+
+// const testerList = (await testerInfo).map((item) => item.toJSON())
 app.get("/", async (req, res) => {
-  res.send(deviceinfo);
+  const rows = await query("SELECT * FROM test.user");
+
+  res.send(rows);
 });
 
 //show data in device info
