@@ -10,6 +10,11 @@ app.get("/", async (req, res) => {
   res.send(deviceinfo);
 });
 
+//show data in device info
+app.get("/sathit", async (req, res) => {
+  res.send("Hola");
+});
+
 // API Post push notification
 app.post("/Pushnotifications", (req, res) => {
   res.send("successfully");
